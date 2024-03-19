@@ -1,0 +1,22 @@
+spring:
+#  datasource: jdbc:h2:mem:db; DB_CLOSE_DELAY=-1
+#  username: foo
+#  password: bar
+
+  jwt:
+    secret: 12345678qwertyui12345678qwertyui12345678qwertyui
+    lifetime: 30m
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/forum-x-db
+    username: postgres
+    password: 1111
+
+  flyway:
+    enabled: true
+    locations:
+      - db.migration
+  jpa:
+    show-sql: true
+#    hibernate.dll-auto: create
+
