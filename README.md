@@ -1,5 +1,5 @@
 # Forum-X
-Api для формума. Используется **Spring Boot**, **Spring Security**, **PostgreSQL**, **Flyway** для миграций.
+Api для форума. Используется **Spring Boot**, **Spring Security**, **PostgreSQL**, **Flyway** для миграций.
 
 ## Функционал:
 1. Регистрация, аутентификация по JWT-токену.
