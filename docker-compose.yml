@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: forum-x
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://database_host:5432/forum-x-db
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: 1111
+      SPRING_MINIO_URL: http://minio:9000
+    depends_on:
+      - db
+      - minio
+
+  db:
+    image: postgres:latest
+    hostname: database_host
+    environment:
+      POSTGRES_DB: forum-x-db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1111
+    ports:
+      - "5432:5432"
+    volumes:
+      - /var/forum-x/postgres-data:/var/lib/postgresql/data
+
+  minio:
+    image: minio/minio
+    command: server /data
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    ports:
+      - "9000:9000"
+    volumes:
+      - /var/forum-x/minio-data:/data
