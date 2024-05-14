@@ -1,8 +1,8 @@
 package com.hits.liid.forumx.config;
 
 import com.hits.liid.forumx.entity.UserEntity;
+import com.hits.liid.forumx.errors.NotFoundException;
 import com.hits.liid.forumx.repository.UserRepository;
-import com.hits.liid.forumx.service.UserService;
 import com.hits.liid.forumx.utils.JwtTokenUtils;
 import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
@@ -45,12 +45,20 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 //                        SecurityContextHolder.getContext().setAuthentication(token);
 //                    }
 //                }
-                if (userId != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+                UserEntity user = userRepository.findById(userId).orElseThrow(() -> new NotFoundException("User not found"));
+                if (!user.isActive())
+                {
+                    response.setStatus(403);
+                    response.getWriter().write("You are banned");
+                    return;
+                }
+                if (SecurityContextHolder.getContext().getAuthentication() == null) {
                     UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
-                            userId, null, Collections.emptyList()
+                            userId, null, user.getAuthorities()
                     );
                     SecurityContextHolder.getContext().setAuthentication(token);
                 }
+
             } catch (ExpiredJwtException e) {
                 log.debug("Token is expired");
             } catch (Exception e) {
@@ -58,5 +66,6 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             }
         }
         filterChain.doFilter(request, response);
+
     }
 }

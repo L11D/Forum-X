@@ -8,6 +8,7 @@ public record CategorySearchDTO(
         String name,
         UUID parentCategoryId,
         UUID userCreatorId,
+        String userNickName,
         LocalDateTime creationDate,
         LocalDateTime editingDate
 ) {

@@ -5,6 +5,7 @@ import com.hits.liid.forumx.service.CategoryService;
 import com.hits.liid.forumx.service.GlobalService;
 import com.hits.liid.forumx.service.MessageService;
 import com.hits.liid.forumx.service.TopicService;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +23,7 @@ public class GlobalServiceImpl implements GlobalService {
     private  final MessageService messageService;
 
     @Override
+    @Transactional
     public GlobalSearchResponse searchSubstring(@Valid @NotBlank String substring) {
         return new GlobalSearchResponse(
                 categoryService.searchSubstring(substring),

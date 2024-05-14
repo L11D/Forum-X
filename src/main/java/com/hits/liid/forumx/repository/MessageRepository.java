@@ -21,7 +21,7 @@ import java.util.UUID;
 public interface MessageRepository extends JpaRepository<MessageEntity, UUID>, JpaSpecificationExecutor<MessageEntity> {
 
     @Query(value =
-            "SELECT m FROM MessageEntity m WHERE m.topicId = :topicId")
+            "SELECT m FROM MessageEntity m WHERE m.parentTopic.id = :topicId")
     Page<MessageEntity> findByTopicId(@Param("topicId") UUID topicId, Pageable pageable);
 
     @Query(value =
@@ -30,8 +30,8 @@ public interface MessageRepository extends JpaRepository<MessageEntity, UUID>, J
 
     @Query(value =
             "SELECT m FROM MessageEntity m " +
-                    "JOIN TopicEntity t ON m.topicId = t.id " +
-                    "JOIN CategoryEntity c ON c.id = t.categoryId " +
+                    "JOIN TopicEntity t ON m.parentTopic.id = t.id " +
+                    "JOIN CategoryEntity c ON c.id = t.parentCategory.id " +
                     "WHERE (:substring IS NULL OR LOWER(m.text) LIKE CONCAT('%', LOWER(:substring), '%')) ")
     List<MessageEntity> search(
             @Param("substring") String substring

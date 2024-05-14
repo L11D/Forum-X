@@ -4,6 +4,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
+import java.util.Set;
 import java.util.UUID;
 
 public record CreateMessageRequest(
@@ -11,6 +12,7 @@ public record CreateMessageRequest(
         @Size(min = 1, max = 10000, message = "Message text size must be between 1 and 10000 characters")
         String text,
         @NotNull
-        UUID topicId
+        UUID topicId,
+        Set<UUID> attachments
 ) {
 }

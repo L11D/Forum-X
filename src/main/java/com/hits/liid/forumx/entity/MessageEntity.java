@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -21,9 +23,12 @@ public class MessageEntity {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @Column(name = "user_creator_id")
-    @NotNull
-    private UUID userCreatorId;
+//    @Column(name = "user_creator_id")
+//    @NotNull
+//    private UUID userCreatorId;
+    @ManyToOne
+    @JoinColumn(name="user_creator_id")
+    private UserEntity userCreator;
 
     @Column(name = "creation_date")
     @NotNull
@@ -36,7 +41,11 @@ public class MessageEntity {
     @NotBlank
     private String text;
 
-    @Column(name = "topic_id")
-    @NotNull
-    private UUID topicId;
+//    @Column(name = "topic_id")
+//    @NotNull
+//    private UUID topicId;
+
+    @ManyToOne
+    @JoinColumn(name="topic_id")
+    private TopicEntity parentTopic;
 }

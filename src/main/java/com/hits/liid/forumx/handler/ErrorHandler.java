@@ -79,4 +79,25 @@ public class ErrorHandler {
     public String handleIncorrectDatesException(IncorrectDatesException ex) {
         return "An error occurred: " + ex.getMessage();
     }
+
+    @ResponseBody
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(value = NotModeratorException.class)
+    public String handleNotModeratorException(NotModeratorException ex) {
+        return "An error occurred: " + ex.getMessage();
+    }
+
+    @ResponseBody
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(value = AlreadyModeratorException.class)
+    public String handleAlreadyModeratorException(AlreadyModeratorException ex) {
+        return "An error occurred: " + ex.getMessage();
+    }
+
+    @ResponseBody
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    @ExceptionHandler(value = TokenExpireException.class)
+    public String handleTokenExpireException(TokenExpireException ex) {
+        return "An error occurred: " + ex.getMessage();
+    }
 }

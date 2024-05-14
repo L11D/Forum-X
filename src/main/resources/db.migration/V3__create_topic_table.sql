@@ -2,7 +2,7 @@ CREATE TABLE topic(
     id UUID primary key,
     category_id UUID not null REFERENCES category(id),
     name varchar(100) not null,
-    user_creator_id UUID REFERENCES users(id),
+    user_creator_id UUID REFERENCES users(id) on delete set null,
     creation_date timestamp not null,
     editing_date timestamp
     );

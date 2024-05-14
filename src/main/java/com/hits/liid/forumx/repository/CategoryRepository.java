@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.UUID;
 
 public interface CategoryRepository extends JpaRepository<CategoryEntity, UUID> {
-    @Query(value = "SELECT c FROM CategoryEntity c WHERE c.parentCategoryId = :parentId")
+    @Query(value = "SELECT c FROM CategoryEntity c WHERE c.parentCategory.id = :parentId")
     List<CategoryEntity> findChildCategories(@Param("parentId") UUID parentId, Sort sort);
     default List<CategoryEntity> findChildCategories(UUID parentId) {
         return findChildCategories(parentId, Sort.unsorted());
@@ -38,11 +38,11 @@ public interface CategoryRepository extends JpaRepository<CategoryEntity, UUID> 
 
     @Query(value =
             "SELECT t FROM TopicEntity t " +
-            "JOIN CategoryEntity c ON t.categoryId = c.id AND c.id = :id ")
+            "JOIN CategoryEntity c ON t.parentCategory.id = c.id AND c.id = :id ")
     List<TopicEntity> findTopicsByCategoryId(@Param("id") UUID id);
 
     @Query(value =
-            "SELECT c FROM CategoryEntity c WHERE c.parentCategoryId IS NULL")
+            "SELECT c FROM CategoryEntity c WHERE c.parentCategory IS NULL") // спорно
     List<CategoryEntity> findTopCategories(Sort sort);
 
     @Query(value =

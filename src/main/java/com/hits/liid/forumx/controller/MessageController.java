@@ -8,8 +8,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Slf4j
@@ -38,14 +40,15 @@ public class MessageController {
             @PathVariable("topicId") UUID topicId,
             @RequestParam(value = "sorting", defaultValue = "CREATION_DATE_DESC") SortingValuesMessage sorting,
             @RequestParam(value = "pageSize", defaultValue = "5") int pageSize,
-            @RequestParam(value = "page", defaultValue = "1") int page){
+            @RequestParam(value = "page", defaultValue = "0") int page){
 
         return messageService.getMessages(topicId, sorting, pageSize, page);
     }
 
     @PostMapping("create")
     @ResponseBody
-    public EntityCreatedResponse create(@RequestBody CreateMessageRequest request, Authentication authentication){
+    public EntityCreatedResponse create(@RequestBody CreateMessageRequest request,
+                                        Authentication authentication){
         return new EntityCreatedResponse(messageService.create(request, authentication));
     }
 

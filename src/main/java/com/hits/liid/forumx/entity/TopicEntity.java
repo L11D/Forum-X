@@ -21,9 +21,13 @@ public class TopicEntity {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @Column(name = "user_creator_id")
-    @NotNull
-    private UUID userCreatorId;
+//    @Column(name = "user_creator_id")
+//    @NotNull
+//    private UUID userCreatorId;
+
+    @ManyToOne
+    @JoinColumn(name="user_creator_id")
+    private UserEntity userCreator;
 
     @Column(name = "creation_date")
     @NotNull
@@ -36,7 +40,11 @@ public class TopicEntity {
     @NotBlank
     private String name;
 
-    @Column(name = "category_id")
-    @NotNull
-    private UUID categoryId;
+//    @Column(name = "category_id")
+//    @NotNull
+//    private UUID categoryId;
+
+    @ManyToOne
+    @JoinColumn(name="category_id")
+    private CategoryEntity parentCategory;
 }

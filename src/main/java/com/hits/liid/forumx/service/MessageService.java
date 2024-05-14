@@ -10,12 +10,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 public interface MessageService {
     List<MessageDTO> search(SearchMessageRequest request);
     List<MessageDTO> searchSubstring(@Valid @NotBlank String substring);
-    MessagePaginationDTO getMessages(UUID topicId, SortingValuesMessage sorting, @Valid @Min(1) int pageSize, @Valid @Min(1) int page);
+    MessagePaginationDTO getMessages(UUID topicId, SortingValuesMessage sorting, @Valid @Min(1) int pageSize, @Valid @Min(0) int page);
     UUID create(@Valid CreateMessageRequest request, Authentication authentication);
     void edit(@Valid EditMessageRequest request, UUID messageId);
     void delete(UUID messageId);

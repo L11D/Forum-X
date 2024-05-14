@@ -27,7 +27,9 @@ import java.util.UUID;
 
 public interface UserService {
     public boolean userExist(UUID id);
+    UserEntity getUserById(UUID userId);
     JwtResponse registerUser(@Valid UserRegistrationRequest registrationRequest);
     JwtResponse login(@Valid UserLoginRequest request);
     UserProfileResponse getProfile(Authentication authentication);
+    JwtResponse loginWithAccessToken(@Valid UUID token);
 }

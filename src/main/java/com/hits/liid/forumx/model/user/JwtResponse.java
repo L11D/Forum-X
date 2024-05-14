@@ -1,4 +1,6 @@
 package com.hits.liid.forumx.model.user;
 
-public record JwtResponse(String token) {
+import java.util.UUID;
+
+public record JwtResponse(String accessToken, UUID refreshToken) {
 }

@@ -8,6 +8,7 @@ public record CategoryDTO(
         UUID id,
         String name,
         UUID userCreatorId,
+        String userNickname,
         LocalDateTime creationDate,
         LocalDateTime editingDate,
         List<CategoryDTO> childCategories

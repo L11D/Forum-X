@@ -22,7 +22,7 @@ public class JwtTokenUtils {
     @Value("${spring.jwt.secret}")
     private String secret;
 
-    @Value("${spring.jwt.lifetime}")
+    @Value("${spring.jwt.access_lifetime}")
     private Duration jwtLifetime;
 
     public String generateToken(UserEntity user){

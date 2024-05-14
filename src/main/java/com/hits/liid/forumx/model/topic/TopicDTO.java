@@ -8,6 +8,7 @@ public record TopicDTO(
         String name,
         UUID categoryId,
         UUID userCreatorId,
+        String userNickname,
         LocalDateTime creationDate,
         LocalDateTime editingDate
 ) {

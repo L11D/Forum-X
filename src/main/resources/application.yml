@@ -3,9 +3,16 @@ spring:
 #  username: foo
 #  password: bar
 
+  minio:
+    url: http://127.0.0.1:9000
+    basketName: storage
+    accessKey: minioadmin
+    secretKey: minioadmin
+
   jwt:
     secret: 12345678qwertyui12345678qwertyui12345678qwertyui
-    lifetime: 30m
+    access_lifetime: 30m
+    refresh_lifetime: 1d
 
   datasource:
     url: jdbc:postgresql://localhost:5432/forum-x-db
@@ -18,5 +25,6 @@ spring:
       - db.migration
   jpa:
     show-sql: true
-#    hibernate.dll-auto: create
+    hibernate:
+      ddl-auto: validate
 

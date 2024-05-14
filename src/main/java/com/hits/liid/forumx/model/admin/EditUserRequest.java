@@ -1,8 +1,12 @@
-package com.hits.liid.forumx.model.user;
+package com.hits.liid.forumx.model.admin;
+
+import com.hits.liid.forumx.model.UserRole;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
-public record UserRegistrationRequest(
+
+public record EditUserRequest(
         @NotBlank(message = "User email cannot be empty")
         @Pattern(regexp = "^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$", message = "Email is not valid")
         String email,
@@ -16,9 +20,8 @@ public record UserRegistrationRequest(
         @Size(min = 3, max = 50, message = "User name size must be between 3 and 50 characters")
         String name,
         @Size(min = 11, max = 12, message = "User phone number size must be between 11 and 12 characters")
-        String phoneNumber
-        )
-{
-
+        String phoneNumber,
+        @NotNull
+        UserRole role
+) {
 }
-

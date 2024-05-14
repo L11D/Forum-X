@@ -17,7 +17,7 @@ import java.util.UUID;
 
 public interface TopicService {
     List<TopicDTO> searchSubstring(@Valid @NotBlank String substring);
-    TopicsPaginationDTO getTopics(SortingValues sorting, @Valid @Min(1) int pageSize, @Valid @Min(1) int page);
+    TopicsPaginationDTO getTopics(SortingValues sorting, @Valid @Min(1) int pageSize, @Valid @Min(0) int page);
     UUID create(@Valid CreateTopicRequest request, Authentication authentication);
     void edit(@Valid EditTopicRequest request, UUID topicId);
     void delete(UUID topicId);

@@ -2,7 +2,7 @@ CREATE TABLE message(
     id UUID primary key,
     topic_id UUID not null REFERENCES topic(id),
     text varchar(10000) not null,
-    user_creator_id UUID REFERENCES users(id),
+    user_creator_id UUID REFERENCES users(id) on delete set null,
     creation_date timestamp not null,
     editing_date timestamp
     );
